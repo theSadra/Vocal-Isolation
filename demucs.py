@@ -27,6 +27,19 @@ def separate_song(path):
         print(f"❗ Separation failed: {e}")
         raise
 
+    base = os.path.splitext(os.path.basename(path))[0]
+    model = os.path.join(SEPARATED, "htdemucs", base)
+    
+    # Load stems
+    vocals = AudioSegment.from_file(os.path.join(model, "vocals.mp3"))
+    drums = AudioSegment.from_file(os.path.join(model, "drums.mp3")) 
+    bass = AudioSegment.from_file(os.path.join(model, "bass.mp3"))
+    other = AudioSegment.from_file(os.path.join(model, "other.mp3"))
+    
+    # Combine instrumental
+    instrumental = drums.overlay(bass).overlay(other)
+    print("✅ Stems processed")
+
 
 print("🎵 Select one or more songs to process.")
 files = choose_audio_files()
