@@ -16,10 +16,26 @@ def choose_audio_files():
         filetypes=[("Audio Files", "*.mp3 *.wav")]
     )
 
+def separate_song(path):
+    """Run Demucs to separate audio stems"""
+    print(f"\n🎧 Processing: {path}")
+    
+    try:
+        subprocess.run(["demucs", "--mp3", path], cwd=OUTPUT, check=True)
+        print("✅ Separation complete")
+    except subprocess.CalledProcessError as e:
+        print(f"❗ Separation failed: {e}")
+        raise
+
+
 print("🎵 Select one or more songs to process.")
 files = choose_audio_files()
 
 if not files:
     print("❌ No files selected.")
 else:
-    print(f"Selected {len(files)} files for processing")
+    for path in files:
+        try:
+            separate_song(path)
+        except Exception:
+            print(f"Skipping {path} due to errors")
