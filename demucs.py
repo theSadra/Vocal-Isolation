@@ -58,9 +58,36 @@ def separate_audio(uploaded):
         shutil.rmtree("separated", ignore_errors=True)
         return None, None
 
-st.title("🎵 Audio Separator")
-st.markdown("Upload a song to separate vocals from instrumental")
+st.markdown("""
+<style>
+.gradient-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    background: linear-gradient(
+        to right,
+        #7953cd 20%,
+        #00affa 30%,
+        #0190cd 70%,
+        #764ada 80%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    background-size: 500% auto;
+    animation: textShine 5s ease-in-out infinite alternate;
+}
+@keyframes textShine {
+    to {
+        background-position: 200% center;
+    }
+}
+</style>
+<h1 class="gradient-title">🎵 HERO NADEMI</h1>
+""", unsafe_allow_html=True)
 
+st.markdown("### Fast and easy vocal/instrumental separation for your songs")
+st.markdown("Upload a song to separate vocals from instrumental")
 uploaded = st.file_uploader(
     "Choose an MP3 or WAV file",
     type=["mp3", "wav"]
